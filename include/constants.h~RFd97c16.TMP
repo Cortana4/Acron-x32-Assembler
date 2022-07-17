@@ -1,0 +1,68 @@
+#pragma once
+#include <iostream>
+
+const uint32_t memorySize = 4096;
+const uint32_t basePtr = 0x00001000;
+const uint8_t SP = 61;
+const uint8_t SR = 62;
+const uint8_t PC = 63;
+
+enum class INST : uint8_t
+{
+	NOP=0,	INR,	MOV,	STM,	
+	STMI,	LDM,	LDMI,	PUSH,
+	POP,	ALU,	ALUI,	MUL,
+	MULI,	DIV,	DIVI,	FPU,
+	FPUI,	JMP,	JMPI,	IEN,
+	IDI,	WAIT,	RETI,	CALL,
+	CALLI,	RET
+};
+
+enum class ALU_FUNC : uint8_t
+{
+	ADD=0,	ADDC,	SUB,	SUBC,
+	INC,	DEC,	NEG,	AND,
+	OR,		XOR,	NOT,	SLL,
+	SLR,	ROL,	ROR
+};
+
+enum class MUL_FUNC : uint8_t
+{
+	UMULL=0,
+	UMULH,
+	SMULL,
+	SMULH
+};
+
+enum class DIV_FUNC : uint8_t
+{
+	UDIV=0,
+	SDIV,
+	UMOD,
+	SMOD
+};
+
+enum class FPU_FUNC : uint8_t
+{
+	ADD=0,	SUB,	MUL,	DIV,
+	SQRT,	NEG,	ABS,	MIN,
+	MAX,	CVTFI,	CVTFU,	CVTIF,
+	CVTUF,	CMP
+};
+
+enum class FPU_RM : uint8_t
+{
+	RNE=0,
+	RMM,
+	RTZ,
+	RDN,
+	RUP
+};
+
+enum class JMP_FUNC : uint8_t
+{
+	JEQ=1,	JNE,	JHI,	JSH,
+	JSL,	JLO,	JGT,	JGE,
+	JLE,	JLT,	JMI,	JPL,
+	JVS,	JVC,	JMP
+};
