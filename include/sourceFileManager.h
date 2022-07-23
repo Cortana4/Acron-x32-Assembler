@@ -19,5 +19,6 @@ public:
 
 private:
 	std::vector<SourceFile*> sourceFileStack;
+	std::vector<std::filesystem::path> included_fs_paths;
 	std::filesystem::path basePath;
 };

@@ -310,6 +310,21 @@ uint32_t toChar(std::string str, std::function<void(std::string)> errorFunc)
 	return 0;
 }
 
+uint32_t toWord(std::string str, std::function<void(std::string)> errorFunc)
+{
+	try { return toInt(str); }
+	catch (std::invalid_argument&)
+	{
+		try { return toFloat(str); }
+		catch (std::invalid_argument&) { if (!errorFunc) throw; }
+		catch (std::out_of_range&) { if (!errorFunc) throw; }
+	}
+	catch (std::out_of_range&) { if (!errorFunc) throw; }
+
+	errorFunc("cannot convert '" + str + "' to 32 bit word.");
+	return 0;
+}
+
 std::vector<uint32_t> toString(std::string str, std::function<void(std::string)> errorFunc)
 {
 	std::string currentChar;
@@ -399,21 +414,6 @@ std::vector<uint32_t> toString(std::string str, std::function<void(std::string)>
 	}
 
 	return chars;
-}
-
-uint32_t toWord(std::string str, std::function<void(std::string)> errorFunc)
-{
-	try { return toInt(str); }
-	catch (std::invalid_argument&)
-	{
-		try { return toFloat(str); }
-		catch (std::invalid_argument&) { if (!errorFunc) throw; }
-		catch (std::out_of_range&) { if (!errorFunc) throw; }
-	}
-	catch (std::out_of_range&) { if (!errorFunc) throw; }
-
-	errorFunc("cannot convert '" + str + "' to 32 bit word.");
-	return 0;
 }
 
 std::vector<uint32_t> toWordArray(std::string str, std::function<void(std::string)> errorFunc)

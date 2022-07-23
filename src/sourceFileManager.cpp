@@ -33,10 +33,9 @@ bool SourceFileManager::addFile(std::string path)
 			fs_path = std::filesystem::absolute(fs_path);
 	}
 
-	// return if file is already included
-	for (SourceFile*& sourceFile : sourceFileStack)
+	for (std::filesystem::path& included_fs_path : included_fs_paths)
 	{
-		if (fs_path.string() == sourceFile->getPath())
+		if (fs_path == included_fs_path)
 			return true;
 	}
 
@@ -44,6 +43,7 @@ bool SourceFileManager::addFile(std::string path)
 	{
 		SourceFile* sourceFile = new SourceFile{ fs_path };
 		sourceFileStack.push_back(sourceFile);
+		included_fs_paths.push_back(fs_path);
 		return true;
 	}
 	catch (std::ifstream::failure&){ return false; }
