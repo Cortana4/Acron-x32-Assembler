@@ -31,7 +31,7 @@ public:
 
 	void addReference(std::string identifier, std::string sourceFile, unsigned int lineNumber);
 	void addDereference(std::string identifier);
-	void resolveReferences(int& errorCount);
+	void link(int& errorCount);
 
 	bool exportRaw(std::string path);
 	bool exportMif(std::string path);

@@ -55,6 +55,8 @@ void SourceFileManager::closeAll()
 		delete sourceFile;
 
 	sourceFileStack.clear();
+	included_fs_paths.clear();
+	basePath.clear();
 }
 
 std::string SourceFileManager::getPath()

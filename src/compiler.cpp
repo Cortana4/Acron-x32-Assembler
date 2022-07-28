@@ -1,7 +1,6 @@
 #include "compiler.h"
 #include "constants.h"
 #include "parser.h"
-#include "converter.h"
 
 #include <iostream>
 #include <utility>
@@ -18,7 +17,6 @@ Compiler::~Compiler()
 
 void Compiler::reset()
 {
-
 	sourceFileManager.closeAll();
 	objectCode.clear();
 	line.clear();
@@ -345,7 +343,7 @@ bool Compiler::compileSource(std::string path)
 			error("unknown instruction '" + tokens.at(0) + "'.");
 	}
 
-	objectCode.resolveReferences(errorCount);
+	objectCode.link(errorCount);
 	
 	if (objectCode.size() > memorySize)
 	{
