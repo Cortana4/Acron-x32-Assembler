@@ -675,7 +675,6 @@ void Compiler::addInst_addr(uint8_t opcode, uint8_t func, std::function<uint32_t
 	else
 	{
 		objectCode.append(getMachineCode(opcode, true, func, 0x00, 0x00, 0x00));
-		objectCode.append(0x00000000);
 		objectCode.addReference(tokens.at(1), sourceFileManager.getPath(), sourceFileManager.getLineNumber());
 	}
 }

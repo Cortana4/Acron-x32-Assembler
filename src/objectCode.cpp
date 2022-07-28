@@ -52,8 +52,7 @@ bool ObjectCode::empty()
 
 void ObjectCode::addReference(std::string identifier, std::string sourceFile, unsigned int lineNumber)
 {
-	// placeholder which will be resolved by linking
-	append(0x00000000);
+	append(0x00000000); // placeholder which will be replaced by linking
 	Reference reference = { identifier, data.size() - 1, sourceFile, lineNumber };
 	references.push_back(reference);
 }
