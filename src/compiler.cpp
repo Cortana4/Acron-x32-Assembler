@@ -172,18 +172,12 @@ bool Compiler::compileSource(std::string path)
 
 		else if (tokens.at(0) == "sbc" || tokens.at(0) == "SBC")
 			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::ALU), static_cast<uint8_t>(ALU_FUNC::SBC));
-// todo: change mul instructions to 64 bit res dstA and dstB
-		else if (tokens.at(0) == "umull" || tokens.at(0) == "UMULL")
-			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::UMULL));
 
-		else if (tokens.at(0) == "umulh" || tokens.at(0) == "UMULH")
-			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::UMULH));
+		else if (tokens.at(0) == "umul" || tokens.at(0) == "UMUL")
+			addInst_srcA_srcB_dstA_dstB(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::UMUL));
 
-		else if (tokens.at(0) == "smull" || tokens.at(0) == "SMULL")
-			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::SMULL));
-
-		else if (tokens.at(0) == "smulh" || tokens.at(0) == "SMULH")
-			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::SMULH));
+		else if (tokens.at(0) == "smul" || tokens.at(0) == "SMUL")
+			addInst_srcA_srcB_dstA_dstB(static_cast<uint8_t>(INST::MUL), static_cast<uint8_t>(MUL_FUNC::SMUL));
 
 		else if (tokens.at(0) == "udiv" || tokens.at(0) == "UDIV")
 			addInst_srcA_srcB_dstA(static_cast<uint8_t>(INST::DIV), static_cast<uint8_t>(DIV_FUNC::UDIV));
@@ -275,40 +269,40 @@ bool Compiler::compileSource(std::string path)
 		else if (tokens.at(0) == "fcmp" || tokens.at(0) == "FCMP")
 			addInst_srcA_srcB(static_cast<uint8_t>(INST::FPU), static_cast<uint8_t>(FPU_FUNC::CMP), toFloat);
 
-		else if (tokens.at(0) == "jeq" || tokens.at(0) == "JEQ")
+		else if (tokens.at(0) == "jeq" || tokens.at(0) == "JEQ" ||  tokens.at(0) == "jzs" || tokens.at(0) == "JZS")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JEQ));
 
-		else if (tokens.at(0) == "jne" || tokens.at(0) == "JNE")
+		else if (tokens.at(0) == "jne" || tokens.at(0) == "JNE" || tokens.at(0) == "jzc" || tokens.at(0) == "JZC")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JNE));
 
 		else if (tokens.at(0) == "jhi" || tokens.at(0) == "JHI")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JHI));
 
-		else if (tokens.at(0) == "jsh" || tokens.at(0) == "JSH")
+		else if (tokens.at(0) == "jsh" || tokens.at(0) == "JSH" || tokens.at(0) == "jcc" || tokens.at(0) == "JCC")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JSH));
 
 		else if (tokens.at(0) == "jsl" || tokens.at(0) == "JSL")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JSL));
 
-		else if (tokens.at(0) == "jlo" || tokens.at(0) == "JLO")
+		else if (tokens.at(0) == "jlo" || tokens.at(0) == "JLO" || tokens.at(0) == "jcs" || tokens.at(0) == "JCS")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JLO));
 
 		else if (tokens.at(0) == "jgt" || tokens.at(0) == "JGT")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JGT));
 
-		else if (tokens.at(0) == "jge" || tokens.at(0) == "JGE")
+		else if (tokens.at(0) == "jge" || tokens.at(0) == "JGE" || tokens.at(0) == "jsc" || tokens.at(0) == "JSC")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JGE));
 
 		else if (tokens.at(0) == "jle" || tokens.at(0) == "JLE")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JLE));
 
-		else if (tokens.at(0) == "jlt" || tokens.at(0) == "JLT")
+		else if (tokens.at(0) == "jlt" || tokens.at(0) == "JLT" || tokens.at(0) == "jss" || tokens.at(0) == "JSS")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JLT));
 
-		else if (tokens.at(0) == "jmi" || tokens.at(0) == "JMI")
+		else if (tokens.at(0) == "jmi" || tokens.at(0) == "JMI" || tokens.at(0) == "jns" || tokens.at(0) == "JNS")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JMI));
 
-		else if (tokens.at(0) == "jpl" || tokens.at(0) == "JPL")
+		else if (tokens.at(0) == "jpl" || tokens.at(0) == "JPL" || tokens.at(0) == "jnc" || tokens.at(0) == "JNC")
 			addInst_addr(static_cast<uint8_t>(INST::JMP), static_cast<uint8_t>(JMP_FUNC::JPL));
 
 		else if (tokens.at(0) == "jvs" || tokens.at(0) == "JVS")
@@ -509,6 +503,32 @@ void Compiler::addInst_srcA_srcB_dstA(uint8_t opcode, uint8_t func, std::functio
 
 	uint8_t srcA = toRegister(tokens.at(1), std::bind(&Compiler::error, this, std::placeholders::_1));
 	uint8_t dstA = tokens.size() == 4 ? toRegister(tokens.at(3), std::bind(&Compiler::error, this, std::placeholders::_1)) : srcA;
+
+	if (isRegister(tokens.at(2)))
+	{
+		uint8_t srcB = toRegister(tokens.at(2), std::bind(&Compiler::error, this, std::placeholders::_1));
+		objectCode.append(getMachineCode(opcode, false, func, srcA, srcB, dstA));
+	}
+	else
+	{
+		uint32_t immediate = toImmediate(tokens.at(2), std::bind(&Compiler::error, this, std::placeholders::_1));
+		objectCode.append(getMachineCode(opcode, true, func, srcA, 0x00, dstA));
+		objectCode.append(immediate);
+	}
+}
+
+void Compiler::addInst_srcA_srcB_dstA_dstB(uint8_t opcode, uint8_t func, std::function<uint32_t(std::string, std::function<void(std::string)>)> toImmediate)
+{
+	if (tokens.size() != 3 && tokens.size() != 4 && tokens.size() != 5)
+	{
+		error("invalid number of operands to " + tokens.at(0) + " instruction.");
+		return;
+	}
+
+	uint8_t srcA = toRegister(tokens.at(1), std::bind(&Compiler::error, this, std::placeholders::_1));
+	uint8_t dstA = tokens.size() >= 4 ? toRegister(tokens.at(3), std::bind(&Compiler::error, this, std::placeholders::_1)) : srcA;
+	uint8_t dstB = tokens.size() == 5 ? toRegister(tokens.at(4), std::bind(&Compiler::error, this, std::placeholders::_1)) : 0;
+	func |= dstB << 2;
 
 	if (isRegister(tokens.at(2)))
 	{

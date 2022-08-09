@@ -39,6 +39,7 @@ private:
 	void addInst_srcB(uint8_t opcode, uint8_t func = 0x00);
 	void addInst_dstA(uint8_t opcode, uint8_t func = 0x00);
 	void addInst_srcA_srcB_dstA(uint8_t opcode, uint8_t func = 0x00, std::function<uint32_t(std::string, std::function<void(std::string)>)> toImmediate = toInt);
+	void addInst_srcA_srcB_dstA_dstB(uint8_t opcode, uint8_t func = 0x00, std::function<uint32_t(std::string, std::function<void(std::string)>)> toImmediate = toInt);
 	void addInst_srcA_dstA(uint8_t opcode, uint8_t func = 0x00);
 	void addInst_srcA_srcB_dstA_RM(uint8_t opcode, uint8_t func = 0x00, std::function<uint32_t(std::string, std::function<void(std::string)>)> toImmediate = toFloat);
 	void addInst_srcA_dstA_RM(uint8_t opcode, uint8_t func = 0x00);

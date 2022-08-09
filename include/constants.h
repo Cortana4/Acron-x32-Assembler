@@ -27,10 +27,8 @@ enum class ALU_FUNC : uint8_t
 
 enum class MUL_FUNC : uint8_t
 {
-	UMULL=0,
-	UMULH,
-	SMULL,
-	SMULH
+	UMUL=0,
+	SMUL
 };
 
 enum class DIV_FUNC : uint8_t
